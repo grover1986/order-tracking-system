@@ -14,17 +14,24 @@ END;
 $$ LANGUAGE plpgsql;
 
 
--- Función para generar Order Number
+-- Función actualizada para generar Order Number y manejar fecha estimada
 CREATE OR REPLACE FUNCTION generate_order_number() 
 RETURNS TRIGGER AS $$
 BEGIN
-    -- Genera un número de orden con formato: YYYY-XXXXXX
-    -- donde YYYY es el año actual y XXXXXX es un número secuencial
+    -- Genera el order_number
     NEW.order_number := CONCAT(
         EXTRACT(YEAR FROM CURRENT_DATE),
         '-',
         LPAD(CAST(nextval('orders_id_seq') AS TEXT), 6, '0')
     );
+    
+    -- Establece la fecha estimada solo si es Delivery
+    IF NEW.delivery_channel = 'Delivery' THEN
+        NEW.estimated_delivery_date := CURRENT_TIMESTAMP + INTERVAL '2 days';
+    ELSE
+        NEW.estimated_delivery_date := NULL;
+    END IF;
+    
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

@@ -9,5 +9,7 @@ SELECT sku, name FROM products ORDER BY id DESC LIMIT 1;
 INSERT INTO orders (group_id, seller_id, recipient_id, delivery_channel, current_status) 
 VALUES (1, 1, 1, 'Delivery', 'registrado');
 
--- Ver el order_number generado
-SELECT order_number FROM orders ORDER BY id DESC LIMIT 1;
+-- Verificar
+SELECT order_number, delivery_channel, estimated_delivery_date 
+FROM orders 
+ORDER BY id DESC LIMIT 1;

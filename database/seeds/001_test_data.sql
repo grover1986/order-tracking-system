@@ -12,6 +12,7 @@ salto en duración de batería. Un diseño resistente. Y una pantalla Super Reti
 -- Insertar destinatarios de prueba
 INSERT INTO recipients (name, email, phone, address) VALUES
     ('Juan Pérez', 'juan@gmail.com', '987654321', 'Av. Principal 123'),
+	 
     ('María García', 'maria@gmail.com', '987654322', 'Jr. Secundario 456');
 
 -- Insertar grupos de pedidos
